@@ -46,3 +46,7 @@ steps:
   inputs:
     targetType: inline
     script: java -jar /home/azureuser/myagent/_work/1/s/FunctionalTesting/testing.jar
+- task: Bash@3
+  inputs:
+    targetType: inline
+    script: 'ssh azureuser@20.106.169.249 docker rm -f myapp'
