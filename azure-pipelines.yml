@@ -34,3 +34,7 @@ steps:
   inputs:
     targetType: inline
     script: 'docker push myazurepipeline.azurecr.io/myapp'
+- task: Bash@3
+  inputs:
+    targetType: inline
+    script: 'ssh azureuser@20.106.169.249 docker run --name myapp -d -P myazurepipeline.azurecr.io/myapp'
