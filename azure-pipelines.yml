@@ -29,4 +29,4 @@ steps:
 - task: Bash@3
   inputs:
     targetType: inline
-    script: 'docker build -t myapp .'
+    script: 'docker build -t myazurepipeline.azurecr.io/myapp .'
