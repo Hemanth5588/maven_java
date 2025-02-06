@@ -50,3 +50,12 @@ steps:
   inputs:
     targetType: inline
     script: 'ssh azureuser@20.106.169.249 docker rm -f myapp'
+- task: KubernetesManifest@1
+  inputs:
+    action: 'deploy'
+    connectionType: 'azureResourceManager'
+    azureSubscriptionConnection: 'Pay-As-You-Go(5336979e-b394-4401-a156-9545882c4f5e)'
+    azureResourceGroup: 'Project-1'
+    kubernetesCluster: 'K8Cluster-1'
+    useClusterAdmin: true
+    manifests: 'myapp.yml'
