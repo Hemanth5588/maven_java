@@ -30,3 +30,7 @@ steps:
   inputs:
     targetType: inline
     script: 'docker build -t myazurepipeline.azurecr.io/myapp .'
+- task: Bash@3
+  inputs:
+    targetType: inline
+    script: 'docker push myazurepipeline.azurecr.io/myapp'
