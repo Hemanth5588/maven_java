@@ -11,14 +11,17 @@ pool:
 
 steps:
 - task: Bash@3
+  displayName: CloningJavaCode
   inputs:
     targetType: 'inline'
     script: 'git clone https://github.com/Hemanth5588/maven_java.git'
 - task: Bash@3
+  displayName: BuildWarFile
   inputs:
     targetType: inline
     script: 'cd 1/s/;mvn package'
 - task: Bash@3
+  displayName: CreatingDockerfile
   inputs:
     targetType: inline
     script: |
@@ -27,30 +30,37 @@ steps:
       COPY webapp/target/webapp.war /usr/local/tomee/webapps/testapp.war
       EOF
 - task: Bash@3
+  displayName: BuildDockerImage
   inputs:
     targetType: inline
     script: 'docker build -t myazurepipeline.azurecr.io/myapp .'
 - task: Bash@3
+  displayName: PusingDockerImageToACR
   inputs:
     targetType: inline
     script: 'docker push myazurepipeline.azurecr.io/myapp'
 - task: Bash@3
+  displayName: DeployingToQA
   inputs:
     targetType: inline
     script: 'ssh azureuser@20.106.169.249 docker run --name myapp -d -P myazurepipeline.azurecr.io/myapp'
 - task: Bash@3
+  displayName: Cloning SeleniumCode
   inputs:
     targetType: 'inline'
     script: 'git clone https://github.com/Hemanth5588/FunctionalTesting.git'
 - task: Bash@3
+  displayName: ExecutingSeleniumCode
   inputs:
     targetType: inline
     script: 'java -jar /home/azureuser/myagent/_work/1/s/FunctionalTesting/testing.jar'
 - task: Bash@3
+  displayName: CleaningQA
   inputs:
     targetType: inline
     script: 'ssh azureuser@20.106.169.249 docker rm -f myapp'
 - task: KubernetesManifest@1
+  displayName: DeployingToProd
   inputs:
     action: 'deploy'
     connectionType: 'azureResourceManager'
